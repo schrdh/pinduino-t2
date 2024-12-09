@@ -49,6 +49,10 @@ void checkPinStates(){
 
   // 19 Left Sling Flashlamps
   if ( pd.pinState()->J126(3) ){ 
+    pd.adrLED1()->fadeIn("white",500);
+    pd.adrLED2()->fadeIn("white",500);
+    pd.adrLED1()->fadeOut(500);
+    pd.adrLED2()->fadeOut(500);
     trigger=1;
   }
 
@@ -59,6 +63,10 @@ void checkPinStates(){
 
   // 21 Gun Flashlamps
   if ( pd.pinState()->J126(5) ){ 
+    pd.adrLED1()->color("blue");
+    delay(500);
+    pd.adrLED1()->color("red");
+    delay(500);
     trigger=1;
   }
 
