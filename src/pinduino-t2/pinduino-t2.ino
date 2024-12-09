@@ -12,7 +12,7 @@ pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 int attract_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int attractWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-String color = "white"; // color of LEDs that attract mode starts with
+String color = "red"; // color of LEDs that attract mode starts with
 
 void setup() {
   Serial.begin(115200);
@@ -35,14 +35,15 @@ void checkPinStates(){
   
   // 17 Hot Dog Flash Lamps 
   if ( pd.pinState()->J126(1) ){
-    pd.adrLED1()->color("blue",255);
-    pd.adrLED2()->color("blue",255);
-    delay(500);
     trigger=1;
   }
 
   // 18 Right Sling Flashlamps
   if ( pd.pinState()->J126(2) ){ 
+    pd.adrLED1()->fadeIn("white",500);
+    pd.adrLED2()->fadeIn("white",500);
+    pd.adrLED1()->fadeOut(500);
+    pd.adrLED2()->fadeOut(500);
     trigger=1;
   }
 
@@ -113,11 +114,11 @@ void checkPinStates(){
 }
 
 void attractMode() {
-  pd.adrLED1()->sparkle(color,1);
-  pd.adrLED2()->sparkle(color,1);
+  pd.adrLED1()->sparkle(color,20);
+  pd.adrLED2()->sparkle(color,20);
   if (random(1000) == 0) {
-    if (color == "white") color = "blue";
+    if (color == "red") color = "blue";
     else if (color == "blue") color = "red";
-    else color = "white";
+    else color = "red";
   }
 }
