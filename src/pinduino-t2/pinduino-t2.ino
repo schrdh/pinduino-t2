@@ -45,6 +45,13 @@ void checkPinStates()
   // 17 Hot Dog Flash Lamps
   if (pd.pinState()->J126(1))
   {
+    pd.adrLED1()->chase("red", 10, 1000, -1);
+    delay(50);
+    pd.adrLED1()->chase("red", 10, 1000, 1);
+
+    pd.adrLED2()->chase("red", 10, 1000, -1);
+    delay(10);
+    pd.adrLED2()->chase("red", 10, 1000, 1);
     trigger = 1;
   }
 
@@ -71,13 +78,20 @@ void checkPinStates()
   // 20 Left Lock Flashlamps
   if (pd.pinState()->J126(4))
   {
+    for (int i = 1; i < 3; i++)
+    {
+      pd.adrLED1()->chase2ColorFromPoint(aLEDNum1 / 2, "red", "blue", 10, 500);
+      pd.adrLED1()->spreadInFromPoint2Color(aLEDNum1 / 2, "blue", "red", 500);
+      pd.adrLED1()->spreadOutToPoint(aLEDNum1 / 2, 500);
+    }
+
     trigger = 1;
   }
 
   // 21 Gun Flashlamps
   if (pd.pinState()->J126(5))
   {
-    for (int i = 0; i <= 8; i++)
+    for (int i = 0; i < 8; i++)
     {
       pd.adrLED1()->color("blue");
       delay(500);
