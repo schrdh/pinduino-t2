@@ -1,7 +1,7 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
-// v0.1.5
+// v0.1.6
 
 #include <pinduino.h>
 
@@ -107,7 +107,11 @@ void checkPinStates()
   // 24 Backglass Flashlamp
   if (pd.pinState()->J126(8))
   {
-    pd.adrLED1()->explosion(16, "red", 32);
+    for (int i = 0; i < 15; i++)
+    {
+      pd.adrLED1()->fire(10, 10);
+    }
+    pd.adrLED1()->spreadOutToPoint(16, 150);
     trigger = 1;
   }
 
@@ -115,7 +119,11 @@ void checkPinStates()
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(13))
   {
-    pd.adrLED1()->explosion(16, "red", 32);
+    for (int i = 0; i < 15; i++)
+    {
+      pd.adrLED1()->fire(10, 10);
+    }
+    pd.adrLED1()->spreadOutToPoint(16, 150);
     trigger = 1;
   }
 
@@ -123,21 +131,21 @@ void checkPinStates()
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(14))
   {
-    //trigger = 1;
+    // trigger = 1;
   }
 
   // 27 Right Popper
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(15))
   {
-    //trigger = 1;
+    // trigger = 1;
   }
 
   // 28 Flash Lamps Drop Target
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(16))
   {
-    //trigger = 1;
+    // trigger = 1;
   }
 
   // trigger is to take care of any cleanup after a sequence has been triggered.
@@ -150,7 +158,7 @@ void checkPinStates()
     attract_on = 0;
     timeLastEvent = millis();
 
-    if(timeFirstEvent == 0)
+    if (timeFirstEvent == 0)
     {
       timeFirstEvent = millis();
       randomSeed(timeFirstEvent);
