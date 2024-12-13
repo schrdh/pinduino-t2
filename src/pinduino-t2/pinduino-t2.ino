@@ -1,7 +1,7 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
-// v0.1.3
+// v0.1.4
 
 #include <pinduino.h>
 
@@ -11,9 +11,10 @@ int aLEDNum2 = 20; // Number of LEDs in LED strip 2
 pinduino pd(aLEDNum1, aLEDNum2, "Nano");
 
 int attract_on = 1;
-unsigned long timeLastEvent = 0; // time last event was last triggered
-int attractWaitTime = 2000;      // Amount of time to wait before chase lights start up again 1000 == 1 second
-String color = "red";            // color of LEDs that attract mode starts with
+unsigned long timeLastEvent = 0;  // time last event was last triggered
+int attractWaitTime = 2000;       // Amount of time to wait before chase lights start up again 1000 == 1 second
+String attractColor = "red";      // color of LEDs that attract mode starts with
+unsigned long timeFirstEvent = 0; // The time the very first event was triggered
 
 void setup()
 {
@@ -71,9 +72,9 @@ void checkPinStates()
   // 20 Left Lock Flashlamps
   if (pd.pinState()->J126(4))
   {
-    pd.adrLED1()->chase2ColorFromPoint(16, "red", "blue", 10, 2);
-    pd.adrLED1()->spreadInFromPoint2Color(16, "blue", "red", 100);
-    pd.adrLED1()->spreadOutToPoint(16, 100);
+    pd.adrLED1()->chase2ColorFromPoint(16, "red", "blue", 10, 10);
+    pd.adrLED1()->spreadInFromPoint2Color(16, "blue", "red", 150);
+    pd.adrLED1()->spreadOutToPoint(16, 150);
     trigger = 1;
   }
 
@@ -98,7 +99,9 @@ void checkPinStates()
   // 23 Left Ramp Flashlamps
   if (pd.pinState()->J126(7))
   {
-    //trigger = 1;
+    pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
+    pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
+    trigger = 1;
   }
 
   // 24 Backglass Flashlamp
@@ -144,21 +147,25 @@ void checkPinStates()
     trigger = 0;
     attract_on = 0;
     timeLastEvent = millis();
+
+    if(timeFirstEvent == 0)
+    {
+      timeFirstEvent = millis();
+      randomSeed(timeFirstEvent);
+    }
   }
   // end function checkPinStates
 }
 
 void attractMode()
 {
-  pd.adrLED1()->sparkle(color, 20);
-  pd.adrLED2()->sparkle(color, 20);
-  if (random(1000) == 0)
+  pd.adrLED1()->sparkle(attractColor, 20);
+  pd.adrLED2()->sparkle(attractColor, 20);
+  if (random(250) == 0)
   {
-    if (color == "red")
-      color = "blue";
-    else if (color == "blue")
-      color = "red";
+    if (attractColor == "red")
+      attractColor = "blue";
     else
-      color = "red";
+      attractColor = "red";
   }
 }
