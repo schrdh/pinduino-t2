@@ -1,11 +1,12 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
+// v0.1.1
 
 #include <pinduino.h>
 
-int aLEDNum1 = 50; // Number of LEDs in LED strip 1
-int aLEDNum2 = 50; // Number of LEDs in LED strip 2
+int aLEDNum1 = 20; // Number of LEDs in LED strip 1
+int aLEDNum2 = 20; // Number of LEDs in LED strip 2
 
 pinduino pd(aLEDNum1, aLEDNum2, "Nano");
 
@@ -25,8 +26,8 @@ void setup()
 void loop()
 {
   pd.pinState()->update();
-  //   Print the pin states out to serial
-  //  pd.pinState()->print();
+  // Print the pin states out to serial
+  //pd.pinState()->print();
   checkPinStates();
   if (millis() - timeLastEvent > attractWaitTime)
   {
@@ -48,50 +49,41 @@ void checkPinStates()
     pd.adrLED1()->chase("red", 10, 1000, -1);
     delay(50);
     pd.adrLED1()->chase("red", 10, 1000, 1);
-
-    pd.adrLED2()->chase("red", 10, 1000, -1);
-    delay(10);
-    pd.adrLED2()->chase("red", 10, 1000, 1);
     trigger = 1;
   }
 
   // 18 Right Sling Flashlamps
   if (pd.pinState()->J126(2))
   {
-    pd.adrLED1()->fadeIn("white", 250);
-    pd.adrLED2()->fadeIn("white", 250);
-    pd.adrLED1()->fadeOut(250);
-    pd.adrLED2()->fadeOut(250);
+    pd.colorAllAdr("white");
+    pd.fadeOutAllAdr(50);
     trigger = 1;
   }
 
   // 19 Left Sling Flashlamps
   if (pd.pinState()->J126(3))
   {
-    pd.adrLED1()->fadeIn("white", 250);
-    pd.adrLED2()->fadeIn("white", 250);
-    pd.adrLED1()->fadeOut(250);
-    pd.adrLED2()->fadeOut(250);
+    pd.colorAllAdr("white");
+    pd.fadeOutAllAdr(50);
     trigger = 1;
   }
 
   // 20 Left Lock Flashlamps
   if (pd.pinState()->J126(4))
   {
-    for (int i = 1; i < 3; i++)
+    for (int i = 0; i < 2; i++)
     {
       pd.adrLED1()->chase2ColorFromPoint(aLEDNum1 / 2, "red", "blue", 10, 500);
       pd.adrLED1()->spreadInFromPoint2Color(aLEDNum1 / 2, "blue", "red", 500);
       pd.adrLED1()->spreadOutToPoint(aLEDNum1 / 2, 500);
     }
-
     trigger = 1;
   }
 
   // 21 Gun Flashlamps
   if (pd.pinState()->J126(5))
   {
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 4; i++)
     {
       pd.adrLED1()->color("blue");
       delay(500);
@@ -104,47 +96,47 @@ void checkPinStates()
   // 22 Right Ramp Flashlamps
   if (pd.pinState()->J126(6))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 23 Left Ramp Flashlamps
   if (pd.pinState()->J126(7))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 24 Backglass Flashlamp
   if (pd.pinState()->J126(8))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 25 Target Flashlamps
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(13))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 26 Left Popper Flashlamps
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(14))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 27 Right Popper
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(15))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // 28 Flash Lamps Drop Target
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(16))
   {
-    trigger = 1;
+    //trigger = 1;
   }
 
   // trigger is to take care of any cleanup after a sequence has been triggered.
