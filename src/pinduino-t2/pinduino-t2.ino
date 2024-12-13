@@ -1,7 +1,7 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
-// v0.1.1
+// v0.1.2
 
 #include <pinduino.h>
 
@@ -12,7 +12,7 @@ pinduino pd(aLEDNum1, aLEDNum2, "Nano");
 
 int attract_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int attractWaitTime = 20000;     // Amount of time to wait before chase lights start up again 1000 == 1 second
+int attractWaitTime = 2000;      // Amount of time to wait before chase lights start up again 1000 == 1 second
 String color = "red";            // color of LEDs that attract mode starts with
 
 void setup()
@@ -27,7 +27,7 @@ void loop()
 {
   pd.pinState()->update();
   // Print the pin states out to serial
-  //pd.pinState()->print();
+  // pd.pinState()->print();
   checkPinStates();
   if (millis() - timeLastEvent > attractWaitTime)
   {
@@ -83,60 +83,92 @@ void checkPinStates()
   // 21 Gun Flashlamps
   if (pd.pinState()->J126(5))
   {
-    for (int i = 0; i < 4; i++)
-    {
-      pd.adrLED1()->color("blue");
-      delay(500);
-      pd.adrLED1()->color("red");
-      delay(500);
-    }
+    pd.adrLED1()->color("blue");
+    delay(500);
+    pd.adrLED1()->color("red");
+    delay(500);
     trigger = 1;
   }
 
   // 22 Right Ramp Flashlamps
   if (pd.pinState()->J126(6))
   {
-    //trigger = 1;
+    for (int i = 0; i < 6; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 23 Left Ramp Flashlamps
   if (pd.pinState()->J126(7))
   {
-    //trigger = 1;
+    for (int i = 0; i < 7; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 24 Backglass Flashlamp
   if (pd.pinState()->J126(8))
   {
-    //trigger = 1;
+    for (int i = 0; i < 8; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 25 Target Flashlamps
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(13))
   {
-    //trigger = 1;
+    for (int i = 0; i < 9; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 26 Left Popper Flashlamps
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(14))
   {
-    //trigger = 1;
+    for (int i = 0; i < 10; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 27 Right Popper
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(15))
   {
-    //trigger = 1;
+    for (int i = 0; i < 11; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // 28 Flash Lamps Drop Target
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(16))
   {
-    //trigger = 1;
+    for (int i = 0; i < 12; i++)
+    {
+      pd.colorAllAdr("green");
+      pd.fadeOutAllAdr(5);
+    }
+    trigger = 1;
   }
 
   // trigger is to take care of any cleanup after a sequence has been triggered.
