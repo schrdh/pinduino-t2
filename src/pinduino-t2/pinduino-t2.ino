@@ -1,7 +1,7 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
-// v0.1.4
+// v0.1.5
 
 #include <pinduino.h>
 
@@ -107,14 +107,16 @@ void checkPinStates()
   // 24 Backglass Flashlamp
   if (pd.pinState()->J126(8))
   {
-    //trigger = 1;
+    pd.adrLED1()->explosion(16, "red", 32);
+    trigger = 1;
   }
 
   // 25 Target Flashlamps
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(13))
   {
-    //trigger = 1;
+    pd.adrLED1()->explosion(16, "red", 32);
+    trigger = 1;
   }
 
   // 26 Left Popper Flashlamps
