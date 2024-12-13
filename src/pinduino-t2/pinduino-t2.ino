@@ -5,7 +5,7 @@
 
 #include <pinduino.h>
 
-int aLEDNum1 = 20; // Number of LEDs in LED strip 1
+int aLEDNum1 = 32; // Number of LEDs in LED strip 1
 int aLEDNum2 = 20; // Number of LEDs in LED strip 2
 
 pinduino pd(aLEDNum1, aLEDNum2, "Nano");
