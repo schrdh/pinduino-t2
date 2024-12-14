@@ -5,6 +5,8 @@
 
 #include <pinduino.h>
 
+// LED strip 1: Right ramp
+// LED strip 2: Hunter ship
 int aLEDNum1 = 32; // Number of LEDs in LED strip 1
 int aLEDNum2 = 20; // Number of LEDs in LED strip 2
 
@@ -48,8 +50,10 @@ void checkPinStates()
   if (pd.pinState()->J126(1))
   {
     pd.adrLED1()->chase("red", 4, 5, -1);
+    pd.adrLED2()->chase("red", 2, 5, -1);
     delay(25);
     pd.adrLED1()->chase("red", 4, 5, 1);
+    pd.adrLED2()->chase("red", 2, 5, 1);
     trigger = 1;
   }
 
@@ -85,6 +89,7 @@ void checkPinStates()
     delay(500);
     pd.adrLED1()->color("red");
     delay(500);
+    pd.adrLED2()->explosion(10, "red", 20);
     trigger = 1;
   }
 
@@ -92,7 +97,10 @@ void checkPinStates()
   if (pd.pinState()->J126(6))
   {
     pd.adrLED1()->chase2ColorFromPoint(16, "blue", "blue", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(10, "red", "red", 10, 2);
+
     pd.adrLED1()->chase2ColorFromPoint(16, "blue", "blue", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(10, "red", "red", 10, 2);
     trigger = 1;
   }
 
@@ -100,18 +108,23 @@ void checkPinStates()
   if (pd.pinState()->J126(7))
   {
     pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(10, "blue", "blue", 10, 2);
+
     pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(10, "blue", "blue", 10, 2);
     trigger = 1;
   }
 
   // 24 Backglass Flashlamp
   if (pd.pinState()->J126(8))
   {
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 30; i++)
     {
       pd.adrLED1()->fire(10, 10);
+      pd.adrLED2()->fire(10, 10);
     }
     pd.adrLED1()->spreadOutToPoint(16, 150);
+    pd.adrLED2()->spreadOutToPoint(10, 150);
     trigger = 1;
   }
 
@@ -119,11 +132,13 @@ void checkPinStates()
   // extended WPC with extra 4-pin plug
   if (pd.pinState()->J126(13))
   {
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 30; i++)
     {
       pd.adrLED1()->fire(10, 10);
+       pd.adrLED2()->fire(10, 10);
     }
     pd.adrLED1()->spreadOutToPoint(16, 150);
+    pd.adrLED2()->spreadOutToPoint(10, 150);
     trigger = 1;
   }
 
