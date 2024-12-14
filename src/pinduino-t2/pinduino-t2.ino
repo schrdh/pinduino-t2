@@ -1,7 +1,7 @@
 // schrdh 2024
 // Interfaced for pinduino shield v0.3
 // Uses pinduino library
-// v0.1.6
+// v0.1.7
 
 #include <pinduino.h>
 
