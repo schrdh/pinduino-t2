@@ -8,7 +8,7 @@
 // LED strip 1: Right ramp
 // LED strip 2: Hunter ship
 int aLEDNum1 = 32; // Number of LEDs in LED strip 1
-int aLEDNum2 = 20; // Number of LEDs in LED strip 2
+int aLEDNum2 = 8;  // Number of LEDs in LED strip 2
 
 pinduino pd(aLEDNum1, aLEDNum2, "Nano");
 
@@ -79,6 +79,9 @@ void checkPinStates()
     pd.adrLED1()->chase2ColorFromPoint(16, "red", "blue", 10, 10);
     pd.adrLED1()->spreadInFromPoint2Color(16, "blue", "red", 150);
     pd.adrLED1()->spreadOutToPoint(16, 150);
+
+    pd.adrLED2()->bullet2Color("purple", "purple", 2, 20, 1);
+    pd.adrLED2()->bullet2Color("purple", "purple", 2, 20, -1);
     trigger = 1;
   }
 
@@ -88,8 +91,10 @@ void checkPinStates()
     pd.adrLED1()->color("blue");
     delay(500);
     pd.adrLED1()->color("red");
-    delay(500);
-    pd.adrLED2()->explosion(10, "red", 20);
+
+    pd.adrLED2()->spreadInFromPoint2Color(4, "red", "red", 150);
+    delay(200);
+    pd.adrLED2()->spreadOutToPoint(4, 150);
     trigger = 1;
   }
 
@@ -97,10 +102,10 @@ void checkPinStates()
   if (pd.pinState()->J126(6))
   {
     pd.adrLED1()->chase2ColorFromPoint(16, "blue", "blue", 10, 2);
-    pd.adrLED2()->chase2ColorFromPoint(10, "red", "red", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(4, "red", "red", 2, 2);
 
     pd.adrLED1()->chase2ColorFromPoint(16, "blue", "blue", 10, 2);
-    pd.adrLED2()->chase2ColorFromPoint(10, "red", "red", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(4, "red", "red", 2, 2);
     trigger = 1;
   }
 
@@ -108,10 +113,10 @@ void checkPinStates()
   if (pd.pinState()->J126(7))
   {
     pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
-    pd.adrLED2()->chase2ColorFromPoint(10, "blue", "blue", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(4, "blue", "blue", 2, 2);
 
     pd.adrLED1()->chase2ColorFromPoint(16, "red", "red", 10, 2);
-    pd.adrLED2()->chase2ColorFromPoint(10, "blue", "blue", 10, 2);
+    pd.adrLED2()->chase2ColorFromPoint(4, "blue", "blue", 2, 2);
     trigger = 1;
   }
 
@@ -124,7 +129,7 @@ void checkPinStates()
       pd.adrLED2()->fire(10, 10);
     }
     pd.adrLED1()->spreadOutToPoint(16, 150);
-    pd.adrLED2()->spreadOutToPoint(10, 150);
+    pd.adrLED2()->spreadOutToPoint(4, 150);
     trigger = 1;
   }
 
@@ -138,7 +143,7 @@ void checkPinStates()
        pd.adrLED2()->fire(10, 10);
     }
     pd.adrLED1()->spreadOutToPoint(16, 150);
-    pd.adrLED2()->spreadOutToPoint(10, 150);
+    pd.adrLED2()->spreadOutToPoint(4, 150);
     trigger = 1;
   }
 
